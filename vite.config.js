@@ -36,7 +36,10 @@ export default defineConfig({
         devSourcemap: false,
     },
     server: {
+        host: '0.0.0.0',
+        port: 5000,
         hmr: {
+            port: 5000,
             overlay: false,
         },
     },
