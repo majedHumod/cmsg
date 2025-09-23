@@ -1,41 +1,4 @@
-@extends('layouts.admin')
-
-@section('title', 'تفاصيل الوجبة')
-
-@section('header', 'تفاصيل الوجبة: ' . $mealPlan->name)
-
-@section('header_actions')
-<div class="flex space-x-2">
-    @if(auth()->user()->hasRole('admin') || $mealPlan->user_id === auth()->id())
-        <a href="{{ route('meal-plans.edit', $mealPlan) }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700">
-            <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-            </svg>
-            تعديل
-        </a>
-    @endif
-    <a href="{{ route('meal-plans.index') }}" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-        <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-        </svg>
-        العودة للقائمة
-    </a>
-</div>
-@endsection
-
-@section('content')
-<div class="max-w-6xl mx-auto">
-    <!-- Main Content Container -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <!-- Hero Section with Image -->
-        @if($mealPlan->image)
-            <div class="relative h-64 md:h-80 overflow-hidden">
-                <img src="{{ Storage::url($mealPlan->image) }}" alt="{{ $mealPlan->name }}" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                <div class="absolute bottom-6 right-6 text-white">
-                    <h1 class="text-3xl md:text-4xl font-bold mb-2">{{ $mealPlan->name }}</h1>
-                    <div class="flex items-center space-x-4 space-x-reverse">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/20 backdrop-blur-sm text-white border border-white/30">
+inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/20 backdrop-blur-sm text-white border border-white/30">
                             {{ $mealPlan->meal_type_name }}
                         </span>
                         <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/20 backdrop-blur-sm text-white border border-white/30">
