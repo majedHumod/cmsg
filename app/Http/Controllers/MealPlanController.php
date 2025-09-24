@@ -44,7 +44,7 @@ class MealPlanController extends Controller
             'instructions' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'prep_time' => 'nullable|integer|min:0',
-            'cook_time' => 'nullable|integer|min:0',
+        $mealPlans = $query->latest()->paginate(12);
             'servings' => 'required|integer|min:1',
             'difficulty' => 'required|in:easy,medium,hard',
             'is_active' => 'nullable|boolean'

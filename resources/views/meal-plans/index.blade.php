@@ -19,6 +19,8 @@
 <div class="max-w-7xl mx-auto">
     <!-- Filters Section -->
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+        <h3 class="text-lg font-medium text-gray-900 mb-4">البحث والفلترة</h3>
+        
         <form method="GET" action="{{ route('meal-plans.index') }}" class="space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <!-- Search -->
@@ -85,105 +87,107 @@
 
     <!-- Meal Plans Grid -->
     @if($mealPlans->count() > 0)
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @foreach($mealPlans as $mealPlan)
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                    <!-- Image -->
-                    <div class="relative h-48 overflow-hidden">
-                        @if($mealPlan->image)
-                            <img src="{{ Storage::url($mealPlan->image) }}" alt="{{ $mealPlan->name }}" class="w-full h-full object-cover">
-                        @else
-                            <div class="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                                <svg class="w-16 h-16 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
-                        @endif
-                        
-                        <!-- Status Badge -->
-                        <div class="absolute top-4 right-4">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $mealPlan->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                                {{ $mealPlan->is_active ? 'متاح' : 'غير متاح' }}
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Content -->
-                    <div class="p-6">
-                        <!-- Title and Type -->
-                        <div class="mb-4">
-                            <h3 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2">{{ $mealPlan->name }}</h3>
-                            <div class="flex items-center space-x-2 space-x-reverse">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
-                                    {{ $mealPlan->meal_type_name }}
-                                </span>
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                                    {{ $mealPlan->difficulty_name }}
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach($mealPlans as $mealPlan)
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                        <!-- Image -->
+                        <div class="relative h-48 overflow-hidden">
+                            @if($mealPlan->image)
+                                <img src="{{ Storage::url($mealPlan->image) }}" alt="{{ $mealPlan->name }}" class="w-full h-full object-cover">
+                            @else
+                                <div class="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                                    <svg class="w-16 h-16 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                            @endif
+                            
+                            <!-- Status Badge -->
+                            <div class="absolute top-4 right-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $mealPlan->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                    {{ $mealPlan->is_active ? 'متاح' : 'غير متاح' }}
                                 </span>
                             </div>
                         </div>
 
-                        <!-- Description -->
-                        @if($mealPlan->description)
-                            <p class="text-gray-600 text-sm mb-4 line-clamp-3">{{ $mealPlan->description }}</p>
-                        @endif
-
-                        <!-- Stats -->
-                        <div class="grid grid-cols-3 gap-4 mb-6">
-                            @if($mealPlan->calories)
-                                <div class="text-center">
-                                    <div class="text-lg font-bold text-green-600">{{ $mealPlan->calories }}</div>
-                                    <div class="text-xs text-gray-500">سعرة</div>
-                                </div>
-                            @endif
-                            
-                            @if($mealPlan->total_time > 0)
-                                <div class="text-center">
-                                    <div class="text-lg font-bold text-blue-600">{{ $mealPlan->total_time }}</div>
-                                    <div class="text-xs text-gray-500">دقيقة</div>
-                                </div>
-                            @endif
-                            
-                            <div class="text-center">
-                                <div class="text-lg font-bold text-purple-600">{{ $mealPlan->servings }}</div>
-                                <div class="text-xs text-gray-500">حصة</div>
-                            </div>
-                        </div>
-
-                        <!-- Actions -->
-                        <div class="flex items-center justify-between">
-                            <a href="{{ route('meal-plans.show', $mealPlan) }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">
-                                عرض التفاصيل
-                            </a>
-                            
-                            @if(auth()->user()->hasRole('admin') || $mealPlan->user_id === auth()->id())
+                        <!-- Content -->
+                        <div class="p-6">
+                            <!-- Title and Type -->
+                            <div class="mb-4">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2">{{ $mealPlan->name }}</h3>
                                 <div class="flex items-center space-x-2 space-x-reverse">
-                                    <a href="{{ route('meal-plans.edit', $mealPlan) }}" class="text-yellow-600 hover:text-yellow-700 transition-colors">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                        </svg>
-                                    </a>
-                                    
-                                    <form action="{{ route('meal-plans.destroy', $mealPlan) }}" method="POST" class="inline" onsubmit="return confirm('هل أنت متأكد من حذف هذه الوجبة؟')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-700 transition-colors">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                            </svg>
-                                        </button>
-                                    </form>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                                        {{ $mealPlan->meal_type_name }}
+                                    </span>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                        {{ $mealPlan->difficulty_name }}
+                                    </span>
                                 </div>
+                            </div>
+
+                            <!-- Description -->
+                            @if($mealPlan->description)
+                                <p class="text-gray-600 text-sm mb-4 line-clamp-3">{{ $mealPlan->description }}</p>
                             @endif
+
+                            <!-- Stats -->
+                            <div class="grid grid-cols-3 gap-4 mb-6">
+                                @if($mealPlan->calories)
+                                    <div class="text-center">
+                                        <div class="text-lg font-bold text-green-600">{{ $mealPlan->calories }}</div>
+                                        <div class="text-xs text-gray-500">سعرة</div>
+                                    </div>
+                                @endif
+                                
+                                @if($mealPlan->total_time > 0)
+                                    <div class="text-center">
+                                        <div class="text-lg font-bold text-blue-600">{{ $mealPlan->total_time }}</div>
+                                        <div class="text-xs text-gray-500">دقيقة</div>
+                                    </div>
+                                @endif
+                                
+                                <div class="text-center">
+                                    <div class="text-lg font-bold text-purple-600">{{ $mealPlan->servings }}</div>
+                                    <div class="text-xs text-gray-500">حصة</div>
+                                </div>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="flex items-center justify-between">
+                                <a href="{{ route('meal-plans.show', $mealPlan) }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">
+                                    عرض التفاصيل
+                                </a>
+                                
+                                @if(auth()->user()->hasRole('admin') || $mealPlan->user_id === auth()->id())
+                                    <div class="flex items-center space-x-2 space-x-reverse">
+                                        <a href="{{ route('meal-plans.edit', $mealPlan) }}" class="text-yellow-600 hover:text-yellow-700 transition-colors">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                            </svg>
+                                        </a>
+                                        
+                                        <form action="{{ route('meal-plans.destroy', $mealPlan) }}" method="POST" class="inline" onsubmit="return confirm('هل أنت متأكد من حذف هذه الوجبة؟')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-600 hover:text-red-700 transition-colors">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
-        </div>
+                @endforeach
+            </div>
 
-        <!-- Pagination -->
-        <div class="mt-8">
-            {{ $mealPlans->appends(request()->query())->links() }}
+            <!-- Pagination -->
+            <div class="mt-8">
+                {{ $mealPlans->withQueryString()->links() }}
+            </div>
         </div>
     @else
         <!-- Empty State -->

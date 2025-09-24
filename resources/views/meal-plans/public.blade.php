@@ -241,7 +241,7 @@
                 </nav>
 
                 <!-- Page Content Container -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8" dir="rtl">
                     <article>
                         <header class="mb-8">
                             <div class="flex justify-between items-center mb-4">
